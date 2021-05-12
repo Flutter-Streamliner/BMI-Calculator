@@ -19,6 +19,7 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
 
   Gender selectedGender;
+  int height = 183;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +28,7 @@ class _InputPageState extends State<InputPage> {
         title: Text('BMI CALCULATOR'),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -63,7 +65,40 @@ class _InputPageState extends State<InputPage> {
                 ],
               ),
             ),
-            Expanded(child: ReusableCard(cardChild: Container(), onPressed: (){},)),
+            Expanded(
+              child: ReusableCard(
+                cardChild: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('HEIGHT', style: kLabelTextStyle,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      textBaseline: TextBaseline.alphabetic,
+                      children: [
+                        Text(height.toString(), style: kNumberTextStyle,),
+                        Text('cm', style: kLabelTextStyle,),
+                      ],
+                    ),
+                    Slider(
+                      min: 120.0,
+                      max: 220.0,
+                      activeColor: kActiveSliderColor,
+                      inactiveColor: kInactiveSliderColor,
+                      value: height.toDouble(), 
+                      onChanged: (newValue){
+                        setState(() {
+                          height = newValue.toInt();
+                        });
+                      }
+                    )
+                  ],
+                ), 
+                onPressed: (){
+
+                },
+              ),
+            ),
             Expanded(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
