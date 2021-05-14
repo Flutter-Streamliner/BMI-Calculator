@@ -1,4 +1,5 @@
 import 'package:bmi_calculator/pages/reusable_card.dart';
+import 'package:bmi_calculator/widgets/round_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -20,6 +21,17 @@ class _InputPageState extends State<InputPage> {
 
   Gender selectedGender;
   int height = 183;
+  int weight = 60;
+  int age = 19;
+
+
+  void addWeight() => setState((){ weight++; });
+
+  void addAge() => setState((){ age++; });
+
+  void substractWeight() => setState((){ weight <= 0 ? weight = 0 : weight--; });
+
+  void substractAge() => setState((){ age <= 0 ? age = 0 : age--; });
 
   @override
   Widget build(BuildContext context) {
@@ -111,8 +123,56 @@ class _InputPageState extends State<InputPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Expanded(child: ReusableCard(cardChild: Container(), onPressed: (){},)),
-                  Expanded(child: ReusableCard(cardChild: Container(), onPressed: (){},)),
+                  Expanded(
+                    child: ReusableCard(
+                      cardChild: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('WEIGHT', style: kLabelTextStyle,),
+                          Text(weight.toString(), style: kNumberTextStyle),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              RoundIconButton(
+                                icon: FontAwesomeIcons.minus,
+                                onPressed: substractWeight,
+                              ),
+                              const SizedBox(width: 10.0),
+                              RoundIconButton(
+                                icon: FontAwesomeIcons.plus,
+                                onPressed: addWeight,
+                              ),
+                            ],
+                          )
+                        ],
+                      ), 
+                    ),
+                  ),
+                  Expanded(
+                    child: ReusableCard(
+                      cardChild: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('AGE', style: kLabelTextStyle,),
+                          Text(age.toString(), style: kNumberTextStyle),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              RoundIconButton(
+                                icon: FontAwesomeIcons.minus,
+                                onPressed: substractAge,
+                              ),
+                              const SizedBox(width: 10.0),
+                              RoundIconButton(
+                                icon: FontAwesomeIcons.plus,
+                                onPressed: addAge,
+                              ),
+                            ],
+                          )
+                        ],
+                      ), 
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -121,9 +181,12 @@ class _InputPageState extends State<InputPage> {
               margin: const EdgeInsets.only(top: 10.0),
               width: double.infinity,
               height: kBottomContainerHeight,
+              child: Text('CALCULATE YOUR BMI', textAlign: TextAlign.center , style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300, fontSize: 24,),),
             ),
           ],
         ),
     );
+    
   }
+
 }
